@@ -4,26 +4,33 @@ const { SuperAdmin, Admin } = require("../db");
 
 
 const authAdmin = async (req, res, next) => {
-	const authHeader = req.headers.authorization;
-	if(!authHeader || !authHeader.startsWith('Bearer ')){
-		return res.status(403).json({
-			msg: 'you are not authorized'
+	try{
+		const authHeader = req.headers.authorization;
+		if(!authHeader || !authHeader.startsWith('Bearer ')){
+			return res.status(403).json({
+				msg: 'you are not authorized'
+			})
+		}
+		const token = authHeader.split(' ')[1];
+		const decoded = jwt.verify(token, JWT_SECRET);
+		const admin = await Admin.findOne({
+			cpf: decoded.cpf
+		})
+		if(!admin){
+			return res.status(411).json({
+				msg: 'unauthorized access'
+			})
+		}
+		req.cpf = decoded.cpf;
+		req.dept = decoded.dept
+		console.log(req.cpf)
+		next();
+	}
+	catch(err){
+		res.json({
+			msg: 'token expired'
 		})
 	}
-	const token = authHeader.split(' ')[1];
-	const decoded = jwt.verify(token, JWT_SECRET);
-	const admin = await Admin.findOne({
-		cpf: decoded.cpf
-	})
-	if(!admin){
-		return res.status(411).json({
-			msg: 'unauthorized access'
-		})
-	}
-	req.cpf = decoded.cpf;
-	req.dept = decoded.dept
-	console.log(req.cpf)
-	next();
 };
 
 const authSuperAdmin = async (req, res, next) => {
