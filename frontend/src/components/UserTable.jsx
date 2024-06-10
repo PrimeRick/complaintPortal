@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import InputBox from './InputBox'
+import Button from './Button'
 
 function UserTable() {
 	const [complaints, setComplaints] = useState([]);
@@ -8,27 +9,53 @@ function UserTable() {
 	const [isMediumScreen, setIsMediumScreen] = useState(false);
 	const token = localStorage.getItem('token');
 	const [feedback, setFeedback] = useState('')
+	const who = localStorage.getItem('who');
 
 	useEffect(() => {
 		// Fetch complaints data
-		axios.get(`http://localhost:3000/v1/user/dashboard`, {
-			headers: {
-				Authorization: token
-			}
-		})
-			.then((response) => {
-				if (response.data.msg == 'token expired') {
-					localStorage.removeItem('token')
-					localStorage.removeItem('who')
-					alert('Session Expired !! \nPlease Sign In Again')
-					navigate('/signin')
-				}
-				setComplaints(response.data.complaints);
-				setIsTableVisible(true); // Show the table after fetching data
-			})
-			.catch((error) => {
-				console.error('Error fetching complaints:', error);
-			});
+		{
+			who == 'user' ?
+				axios.get(`http://localhost:3000/v1/user/dashboard`, {
+					headers: {
+						Authorization: token
+					}
+				})
+					.then((response) => {
+						if (response.data.msg == 'token expired') {
+							localStorage.removeItem('token')
+							localStorage.removeItem('who')
+							localStorage.removeItem('complaintType')
+							alert('Session Expired !! \nPlease Sign In Again')
+							navigate('/signin')
+						}
+						setComplaints(response.data.complaints);
+						setIsTableVisible(true); // Show the table after fetching data
+					})
+					.catch((error) => {
+						console.error('Error fetching complaints:', error);
+					})
+				:
+				axios.get(`http://localhost:3000/v1/${who}/userDashboard`, {
+					headers: {
+						Authorization: token
+					}
+				})
+					.then((response) => {
+						if (response.data.msg == 'token expired') {
+							localStorage.removeItem('token')
+							localStorage.removeItem('who')
+							localStorage.removeItem('complaintType')
+							alert('Session Expired !! \nPlease Sign In Again')
+							navigate('/signin')
+						}
+						setComplaints(response.data.complaints);
+						setIsTableVisible(true); // Show the table after fetching data
+					})
+					.catch((error) => {
+						console.error('Error fetching complaints:', error);
+					})
+
+		}
 
 		// Check initial screen size
 		handleScreenSizeChange();
@@ -66,12 +93,12 @@ function UserTable() {
 						</colgroup>
 						<thead className="text-[#4D4D4D]">
 							<tr className="bg-[#F2F2F2]">
-								<th className="px-3 py-[10px] text-left text-sm font-medium tracking-wider rounded-l">
-									#
-								</th>
 								{/* <th className="px-3 py-[10px] text-left text-sm font-medium tracking-wider rounded-l">
-									Complaint Id
+									#
 								</th> */}
+								<th className="px-3 py-[10px] text-left text-sm font-medium tracking-wider rounded-l">
+									Complaint Id
+								</th>
 								<th className="px-3 py-[10px] text-left text-sm font-medium tracking-wider rounded-l">
 									Complaint Type
 								</th>
@@ -93,7 +120,7 @@ function UserTable() {
 						<tbody className="bg-white divide-[#E6E6E6]">
 							{complaints.map((elem, index) => (
 								<tr className="text-sm relative" key={elem._id}>
-									<th scope="row">{index+1}</th>
+									<th scope="row">{elem.serial}</th>
 									{/* <td className="px-3 py-[10px] whitespace-wrap text-[#4D4D4D" >{elem._id}</td> */}
 									<td className="px-3 py-[10px] whitespace-wrap text-[#4D4D4D" >{elem.dept}</td>
 									<td className="px-3 py-[10px] whitespace-wrap align-middle gap-[6px] text-[#1A181E] z-10">
@@ -102,10 +129,24 @@ function UserTable() {
 									<td className="px-3 py-[10px] whitespace-wrap text-[#1A181E]">{elem.description}</td>
 									<td className="px-3 py-[10px] whitespace-wrap text-[#4D4D4D]">{elem.createdAt}</td>
 									<td className="px-3 py-[10px] whitespace-wrap text-[#4D4D4D]">
-										{elem.state=='Resolved'?
-										<InputBox type={"text"} stateVariable={feedback} label={"Feedback"} onChange={(e)=>setFeedback(e.target.value)}/>
-										:
-										<>{elem.feedback}</>
+										{elem.state == 'Resolved'  && !(elem.feedback) ?
+											<>
+												<InputBox type={"text"} stateVariable={feedback} label={"Feedback"} onChange={(e) => setFeedback(e.target.value)} />
+												<Button label={"✔︎"} onClick={()=>{
+													axios.put('http://localhost:3000/v1/user/feedback', {
+														complaintId: elem._id,
+														feedback: feedback
+													}, {
+														headers: {
+															Authorization: token
+														}
+													}).then((response)=>{
+														setFeedback(response.data.feedback)
+													})
+												}}/>
+											</>
+											:
+											<>{elem.feedback}</>
 										}
 									</td>
 									{isTableVisible && (

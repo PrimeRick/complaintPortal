@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 function Card({src, title}) {
@@ -13,9 +13,11 @@ function Card({src, title}) {
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">{title}</h5>
-                            <p class="card-text">Click below to register a complaint against {title} </p>
-                            <br />
-                            <button onClick={()=>navigate('/complain')} class="btn btn-outline-danger">Register Complaint</button>
+                            <br /> <br /> <br />
+                            <button onClick={()=>{
+                                localStorage.setItem('complaintType', title)
+                                navigate('/complain')
+                            }} class="btn btn-outline-danger">Register Complaint</button>
                         </div>
                     </div>
                 </div>

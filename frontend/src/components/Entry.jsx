@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import StatusButton from './StatusButton';
@@ -5,6 +6,7 @@ import StatusButton from './StatusButton';
 function Entry({ cpf, status, description, createdAt, complaintId, isTableVisible, feedback, index }) {
 	const [status2, setStatus2] = useState(status)
 	const token = localStorage.getItem('token')
+	console.log(status2);
 	useEffect(() => {
 		axios.put(`http://localhost:3000/v1/admin/${status2}`, {
 			complaintId: complaintId
@@ -16,6 +18,7 @@ function Entry({ cpf, status, description, createdAt, complaintId, isTableVisibl
 			if (response.data.msg == 'token expired') {
 				localStorage.removeItem('token')
 				localStorage.removeItem('who')
+				localStorage.removeItem('complaintType')
 				alert('Session Expired !! \nPlease Sign In Again')
 				navigate('/signin')
 			}

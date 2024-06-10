@@ -2,8 +2,9 @@ const express = require("express");
 const zod = require('zod');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../config');
-const { Admin, Complaint, User } = require('../db');
+const { Admin, Complaint, User, Serial } = require('../db');
 const { authAdmin } = require('../middleware/auth')
+const ExcelJs = require('exceljs')
 
 const router = express.Router();
 
@@ -70,15 +71,32 @@ router.get('/dashboard', authAdmin, async(req, res)=>{
         })
     }
 })
+router.get('/userDashboard', authAdmin, async(req, res)=>{
+    const cpf = req.cpf;
+    console.log(cpf)
+    try{
+        const complaints = await Complaint.find({
+            cpf: cpf
+        })
+        res.json({
+            complaints
+        })
+    }
+    catch(err){
+        res.status(500).json({
+            msg: `${err}`
+        })
+    }
+})
 
-router.put('/Pending', authAdmin, async(req, res)=>{
+router.put('/Open', authAdmin, async(req, res)=>{
     const complaintId = req.body.complaintId
     try{
         const complaint = await Complaint.findOneAndUpdate({
             _id: complaintId,
             dept: req.dept
         }, {
-            state: "Pending"
+            state: "Open"
         })
         if(!complaint){
             return res.status(411).json({
@@ -93,17 +111,17 @@ router.put('/Pending', authAdmin, async(req, res)=>{
     }
     res.json({
         msg: 'status updated successfully',
-        state: 'Pending'
+        state: 'Open'
     })
 })
-router.put('/Processing', authAdmin, async(req, res)=>{
+router.put('/InProgress', authAdmin, async(req, res)=>{
     const complaintId = req.body.complaintId
     try{
         const complaint = await Complaint.findOneAndUpdate({
             _id: complaintId,
             dept: req.dept
         }, {
-            state: "Processing"
+            state: "In Progress"
         })
         if(!complaint){
             return res.status(411).json({
@@ -118,18 +136,18 @@ router.put('/Processing', authAdmin, async(req, res)=>{
     }
     res.json({
         msg: 'status updated successfully',
-        state: 'Processing'
+        state: 'In Progress'
     })
 })
 
-router.put('/Resolved', authAdmin, async(req, res)=>{
+router.put('/Closed', authAdmin, async(req, res)=>{
     const complaintId = req.body.complaintId
     try{
         const complaint = await Complaint.findOneAndUpdate({
             _id: complaintId,
             dept: req.dept
         }, {
-            state: "Resolved"
+            state: "Closed"
         })
         if(!complaint){
             return res.status(411).json({
@@ -144,17 +162,17 @@ router.put('/Resolved', authAdmin, async(req, res)=>{
     }
     res.json({
         msg: 'status updated successfully',
-        state: 'Resolved'
+        state: 'Closed'
     })
 })
-router.put('/Unresolved', authAdmin, async(req, res)=>{
+router.put('/Undetermined', authAdmin, async(req, res)=>{
     const complaintId = req.body.complaintId
     try{
         const complaint = await Complaint.findOneAndUpdate({
             _id: complaintId,
             dept: req.dept
         }, {
-            state: "Unresolved"
+            state: "Undetermined"
         })
         if(!complaint){
             return res.status(411).json({
@@ -169,9 +187,164 @@ router.put('/Unresolved', authAdmin, async(req, res)=>{
     }
     res.json({
         msg: 'status updated successfully',
-        state: 'Unresolved'
+        state: 'Undetermined'
     })
 })
 
+const complaintBody = zod.object({
+    dept: zod.string(),
+    qtrNo: zod.string(),
+    serial: zod.number(),
+    description: zod.string(),
+    location: zod.string()
+})
+
+router.post('/complaint', authAdmin, async(req,res)=>{
+    const { success } = complaintBody.safeParse(req.body)
+    if(!success){
+        return res.status(411).json({
+            msg: 'invalid inputs',
+            dept: req.body.dept,
+            phase: req.body.phase,
+            qtrNo: req.body.qtrNo,
+            description: req.body.description
+        })
+    }
+    try{
+        const currentDate = new Date();
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        const year = currentDate.getFullYear();
+        
+        const hours = String(currentDate.getHours()).padStart(2, '0');
+        const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+        const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+        
+        const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+        await Complaint.create({
+            cpf: req.cpf,
+            dept: req.body.dept,
+            phase: req.body.phase,
+            qtrNo: req.body.qtrNo,
+            serial: req.body.serial,
+            location: req.body.location,
+            description: req.body.description,
+            state: "Open",
+            createdAt: formattedDate
+        })
+        res.json({
+            msg: 'complaint lodged successfully'
+        })
+    }
+    catch(err){
+        res.status(411).json({
+            msg: `${err}`
+        })
+    }
+})
+
+router.get('/serial', authAdmin, async(req, res)=>{
+    const response = await Serial.findOne({})
+    console.log(`heyyyyyy ${response.serial}`)
+    return res.json({
+        serial: response.serial
+    })
+})
+
+const updateSerialBody = zod.object ({
+    serial: zod.number()
+})
+
+router.put('/updateSerial', authAdmin, async(req, res)=>{
+    const { success } = updateSerialBody.safeParse(req.body);
+    if(!success){
+        return res.status(411).json({
+            msg: 'invalid inputs',
+            serial: req.body.serial
+        })
+    }
+    const serial = req.body.serial
+    const newSerial = serial+1
+    try{
+        const entry = await Serial.findOneAndUpdate({
+            serial: serial
+        }, {
+            serial: newSerial
+        })
+        if(!entry){
+            return res.status(411).json({
+                msg: 'no such serial found'
+            })
+        }
+        return res.json({
+            msg: 'serial updated'
+        })
+    }
+    catch{
+        return res.status(411).json({
+            msg: 'serial could not be updated'
+        })
+    }
+})
+
+router.delete('/reset', authAdmin, async(req, res)=>{
+    try{
+        await Serial.delete({})
+        await Complaint.delete({})
+        await Serial.create({
+            serial: 1
+        })
+        return res.json({
+            msg: 'New Contract Begins'
+        })
+    }
+    catch{
+        return res.status(411).json({
+            msg: "some error occured"
+        })
+    }
+})
+
+router.get('/downloadExcel', authAdmin, async(req, res)=>{
+    try{
+        const workbook = new ExcelJs.Workbook()
+        const worksheet = workbook.addWorksheet('complaints')
+        worksheet.columns = [ 
+            {header: "Complaint Id", key: "serial"},
+            {header: "CPF", key: "cpf"},
+            {header: "Department", key: "dept"},
+            {header: "Status", key: "state"},
+            {header: "Location", key: "qtrNo"},
+            {header: "Description", key: "description"},
+            {header: "Created At", key: "createdAt"},
+            {header: "Feedback", key: "feedback"},
+        ]
+        console.log(req.dept);
+        const complaintsData = await Complaint.find({
+            dept: req.dept
+        })
+        complaintsData.forEach((elem)=>{
+            worksheet.addRow(elem.toObject())
+        })
+
+        worksheet.getRow(1).eachCell((cell)=>{
+            cell.font = {bold: true}
+        })
+
+        res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+        res.setHeader("Content-Disposition", `attachment; filename:"complants.xlsx"`)
+
+        return workbook.xlsx.write(res).then(()=>{
+            res.status(200).end()
+        })
+    }
+    catch(err){
+        console.error('Error generating Excel file:', err);
+        res.status(500).json({
+            msg: "An error occurred while generating the Excel file",
+            error: err.message
+        });
+    }  
+})
 
 module.exports = router

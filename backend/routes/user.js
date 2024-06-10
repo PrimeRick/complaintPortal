@@ -2,7 +2,7 @@ const express = require("express");
 const zod = require('zod');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../config');
-const { User, Admin, SuperAdmin } = require('../db');
+const { User, Admin, SuperAdmin, Serial, CivilSerial, ElectricalSerial, CanteenSerial, HousekeepingSerial } = require('../db');
 const { authUser } = require('../middleware/auth');
 const { Complaint } = require("../db");
 
@@ -141,7 +141,6 @@ router.get('/dashboard', authUser ,async(req,res)=>{
 
 const complaintBody = zod.object({
     dept: zod.string(),
-    phase: zod.string(),
     qtrNo: zod.string(),
     description: zod.string()
 })
@@ -150,7 +149,10 @@ router.post('/complaint', authUser, async(req,res)=>{
     const { success } = complaintBody.safeParse(req.body)
     if(!success){
         return res.status(411).json({
-            msg: 'invalid inputs'
+            msg: 'invalid inputs',
+            dept: typeof req.body.dept,
+            description: typeof req.body.description,
+            qtrNo: typeof req.body.qtrNo,
         })
     }
     try{
@@ -168,9 +170,11 @@ router.post('/complaint', authUser, async(req,res)=>{
             cpf: req.cpf,
             dept: req.body.dept,
             phase: req.body.phase,
+            serial: req.body.serial,
             qtrNo: req.body.qtrNo,
+            location: req.body.location,
             description: req.body.description,
-            state: "Pending",
+            state: "Open",
             createdAt: formattedDate
         })
         res.json({
@@ -180,6 +184,152 @@ router.post('/complaint', authUser, async(req,res)=>{
     catch(err){
         res.status(411).json({
             msg: `${err}`
+        })
+    }
+})
+
+const feedbackBody= zod.object({
+    feedback: zod.string(),
+    complaintId: zod.string()
+})
+
+router.put('/feedback', authUser, async(req, res)=>{
+    const { success } = feedbackBody.safeParse(req.body)
+    console.log(req.body.feedback);
+    console.log(req.body.complaintId);
+    if(!success){
+        return res.status(411).json({
+            msg: 'invalid inputs'
+        })
+    }
+    try{
+        const feedback = req.body.feedback
+        await Complaint.findOneAndUpdate({
+            _id: req.body.complaintId
+        }, {
+            feedback: feedback
+        })
+    }
+    catch(err){
+        return res.status(411).json({
+            msg: err
+        })
+    }
+})
+
+router.get('/civilSerial', authUser, async(req, res)=>{
+    const response = await CivilSerial.findOne({})
+    console.log(`heyyyyyy ${response.serial}`)
+    return res.json({
+        serial: response.serial
+    })
+})
+
+router.get('/electricalSerial', authUser, async(req, res)=>{
+    const response = await ElectricalSerial.findOne({})
+    console.log(`heyyyyyy ${response.serial}`)
+    return res.json({
+        serial: response.serial
+    })
+})
+
+router.get('/canteenSerial', authUser, async(req, res)=>{
+    const response = await CanteenSerial.findOne({})
+    console.log(`heyyyyyy ${response.serial}`)
+    return res.json({
+        serial: response.serial
+    })
+})
+
+router.get('/housekeepingSerial', authUser, async(req, res)=>{
+    const response = await HousekeepingSerial.findOne({})
+    console.log(`heyyyyyy ${response.serial}`)
+    return res.json({
+        serial: response.serial
+    })
+})
+
+const updateSerialBody = zod.object ({
+    serial: zod.number(),
+    whichSerial: zod.string()
+})
+
+router.put('/updateSerial', authUser, async(req, res)=>{
+    const { success } = updateSerialBody.safeParse(req.body);
+    if(!success){
+        return res.status(411).json({
+            msg: 'invalid inputs',
+            serial: req.body.serial
+        })
+    }
+    const serial = req.body.serial
+    const newSerial = serial+1
+    const whichSerial = req.body.whichSerial
+    try{
+        if(whichSerial=='civilSerial'){
+            const entry = await CivilSerial.findOneAndUpdate({
+                serial: serial
+            }, {
+                serial: newSerial
+            })
+            if(!entry){
+                return res.status(411).json({
+                    msg: 'no such serial found'
+                })
+            }
+            return res.json({
+                msg: 'serial updated'
+            })
+        }
+        else if(whichSerial=='canteenSerial'){
+            const entry = await CanteenSerial.findOneAndUpdate({
+                serial: serial
+            }, {
+                serial: newSerial
+            })
+            if(!entry){
+                return res.status(411).json({
+                    msg: 'no such serial found'
+                })
+            }
+            return res.json({
+                msg: 'serial updated'
+            })
+        }
+        else if(whichSerial=='electricalSerial'){
+            const entry = await ElectricalSerial.findOneAndUpdate({
+                serial: serial
+            }, {
+                serial: newSerial
+            })
+            if(!entry){
+                return res.status(411).json({
+                    msg: 'no such serial found'
+                })
+            }
+            return res.json({
+                msg: 'serial updated'
+            })
+        }
+        else{
+            const entry = await HousekeepingSerial.findOneAndUpdate({
+                serial: serial
+            }, {
+                serial: newSerial
+            })
+            if(!entry){
+                return res.status(411).json({
+                    msg: 'no such serial found'
+                })
+            }
+            return res.json({
+                msg: 'serial updated'
+            })
+        }
+    }
+    catch{
+        return res.status(411).json({
+            msg: 'serial could not be updated'
         })
     }
 })

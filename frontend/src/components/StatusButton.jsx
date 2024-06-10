@@ -1,33 +1,31 @@
 import React, { useState } from 'react';
-import { FiEdit, FiChevronDown, FiShare, FiPlusSquare, FiTrash} from 'react-icons/fi';
+import { FiChevronDown } from 'react-icons/fi';
 import { MdOutlinePendingActions } from "react-icons/md";
 import { VscServerProcess } from "react-icons/vsc";
-import { TiThumbsUp } from "react-icons/ti";
-import { TiThumbsDown } from "react-icons/ti";
+import { TiThumbsUp, TiThumbsDown } from "react-icons/ti";
 import { motion } from 'framer-motion';
 import classNames from 'classnames';
 
-const StatusButton = ({ type, setType, onChange }) => {
+const StatusButton = ({ type, setType }) => {
     const [open, setOpen] = useState(false);
 
     // Determine button color based on the current type
     const buttonColor = classNames({
-        'bg-slate-700 hover:bg-slate-800': type === 'Pending',
-        'bg-sky-700 hover:bg-sky-800': type === 'Processing',
-        'bg-emerald-700 hover:bg-emerald-800': type === 'Resolved',
-        'bg-rose-700 hover:bg-rose-800': type === 'Unresolved',
+        'bg-slate-700 hover:bg-slate-800': type === 'Open',
+        'bg-sky-700 hover:bg-sky-800': type === 'InProgress',
+        'bg-emerald-700 hover:bg-emerald-800': type === 'Closed',
+        'bg-rose-700 hover:bg-rose-800': type === 'Undetermined',
     });
-    
+
+    // Default button color if type is not recognized
+    const defaultButtonColor = 'bg-gray-500 hover:bg-gray-600';
+    console.log(type);
+
     return (
         <motion.div animate={open ? 'open' : 'closed'} className="relative">
             <button
-                onChange={() => {
-                    onChange();
-                }}
-                onClick={() => {
-                    setOpen((pv) => !pv);
-                }}
-                className={`z-20 flex items-center gap-2 px-3 py-2 rounded-md text-white transition-colors w-32 ${buttonColor}`}
+                onClick={() => setOpen((prev) => !prev)}
+                className={`z-20 flex items-center gap-2 px-3 py-2 rounded-md text-white transition-colors w-36 ${buttonColor || defaultButtonColor}`}
             >
                 <span className="font-medium text-sm">{type}</span>
                 <motion.span variants={iconVariants}>
@@ -37,26 +35,27 @@ const StatusButton = ({ type, setType, onChange }) => {
 
             <motion.ul
                 initial={wrapperVariants.closed}
+                animate={open ? 'open' : 'closed'}
                 variants={wrapperVariants}
                 style={{ originY: 'top', translateX: '-50%' }}
-                className="flex flex-col gap-2 p-2 rounded-lg bg-white shadow-xl absolute top-[120%] left-[50%] w-48 overflow-hidden z-30"
+                className="flex flex-col gap-2 p-2 rounded-lg bg-white shadow-xl absolute top-[120%] left-[50%] w-56 overflow-hidden z-30"
             >
-                <Option setOpen={setOpen} Icon={MdOutlinePendingActions} setType={setType} color="slate" text="Pending" />
-                <Option setOpen={setOpen} Icon={VscServerProcess} setType={setType} color="sky" text="Processing" />
-                <Option setOpen={setOpen} Icon={TiThumbsUp} setType={setType} color="emerald" text="Resolved" />
-                <Option setOpen={setOpen} Icon={TiThumbsDown} setType={setType} color="rose" text="Unresolved" />
+                <Option setOpen={setOpen} Icon={MdOutlinePendingActions} setType={setType} color="slate" text="Open" sukuna="Open" />
+                <Option setOpen={setOpen} Icon={VscServerProcess} setType={setType} color="sky" text="InProgress" sukuna="InProgress" />
+                <Option setOpen={setOpen} Icon={TiThumbsUp} setType={setType} color="emerald" text="Closed" sukuna="Closed" />
+                <Option setOpen={setOpen} Icon={TiThumbsDown} setType={setType} color="rose" text="Undetermined" sukuna="Undetermined" />
             </motion.ul>
         </motion.div>
     );
 };
 
-const Option = ({ text, Icon, setOpen, setType, color }) => {
+const Option = ({ text, Icon, setOpen, setType, color, sukuna }) => {
     return (
         <motion.li
             variants={itemVariants}
             onClick={() => {
                 setOpen(false);
-                setType(text);
+                setType(sukuna);
             }}
             className={classNames(
                 'flex items-center gap-2 w-full p-2 text-xs font-medium whitespace-nowrap rounded-md transition-colors cursor-pointer',

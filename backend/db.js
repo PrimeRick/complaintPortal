@@ -37,12 +37,19 @@ const complaintSchema = mongoose.Schema({
 	 	type: String,
 		required: true
 	},
-	phase: { 
+	location: {
 		type: String,
 		required: true
 	},
+	phase: { 
+		type: String,
+	},
 	qtrNo: { 
 		type: String,
+		required: true
+	},
+	serial: {
+		type: Number,
 		required: true
 	},
 	cpf: { 
@@ -62,21 +69,52 @@ const complaintSchema = mongoose.Schema({
 	// }
 	},
 	feedback: {
-		type: String
+		type: String,
+		default: ""
 	},
-	remarks: {
-		type: String
-	}
 });
 
+const civilSerialSchema = mongoose.Schema({
+	serial: {
+		type: Number,
+		required: true
+	}
+})
+const canteenSerialSchema = mongoose.Schema({
+	serial: {
+		type: Number,
+		required: true
+	}
+})
+const electricalSerialSchema = mongoose.Schema({
+	serial: {
+		type: Number,
+		required: true
+	}
+})
+const housekeepingSerialSchema = mongoose.Schema({
+	serial: {
+		type: Number,
+		required: true
+	}
+})
+
+const CivilSerial = mongoose.model('CivilSerial', civilSerialSchema);
+const ElectricalSerial = mongoose.model('ElectricalSerial', electricalSerialSchema);
+const CanteenSerial = mongoose.model('CanteenSerial', canteenSerialSchema);
+const HousekeepingSerial = mongoose.model('HousekeepingSerial', housekeepingSerialSchema);
 const User = mongoose.model('User', userSchema);
 const Admin = mongoose.model('Admin', adminSchema);
 const SuperAdmin = mongoose.model('SuperAdmin', superAdminSchema);
 const Complaint = mongoose.model('Complaint', complaintSchema);
 
 module.exports = {
-  User,
-  Admin,
-  SuperAdmin,
-  Complaint,
+ 	User,
+	Admin,
+	SuperAdmin,
+	Complaint,
+	CivilSerial,
+	ElectricalSerial,
+	CanteenSerial,
+	HousekeepingSerial
 };

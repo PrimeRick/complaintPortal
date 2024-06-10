@@ -4,6 +4,7 @@ import './App.css'
 import Complaint from './pages/Complaint'
 import Dashboard from './pages/Dashboard'
 import Complain from './pages/Complain'
+import UserDashboard from './pages/UserDashboard'
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
 					<Route path='/signin' element={<Signin/>}/>
 					<Route path='/complaint' element={<Complaint/>}/>
 					<Route path='/dashboard' element={<Dashboard/>}/>
+					<Route path='/userDashboard' element={<UserDashboard/>}/>
 					<Route path='/complain' element={<Complain/>}/>
 				</Routes>
 			</BrowserRouter>

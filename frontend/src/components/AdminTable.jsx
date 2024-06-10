@@ -19,6 +19,7 @@ function AdminTable() {
 				if (response.data.msg == 'token expired') {
 					localStorage.removeItem('token')
 					localStorage.removeItem('who')
+					localStorage.removeItem('complaintType')
 					alert('Session Expired !! \nPlease Sign In Again')
 					navigate('/signin')
 				}
@@ -52,6 +53,25 @@ function AdminTable() {
 				<div className={isMediumScreen ? "overflow-visible" : "hidden"}>
 					<span className="flex text-red-700 text-3xl items-center pl-60 ">Complaints</span>
 					<br />
+					<button type='button' class="btn btn-success" onClick={()=>{
+                        const config = {
+                            headers: {
+                                Authorization: localStorage.getItem('token'),
+                                'Content-Type': 'application/json'
+                            }, 
+                            responseType: 'blob'
+                        }
+                        axios.get('http://localhost:3000/v1/admin/downloadExcel', config)
+                        .then((response)=>{
+                            const url = window.URL.createObjectURL(new Blob([response.data]));
+                            const link = document.createElement('a');
+                            link.href = url;
+                            link.setAttribute('download', 'complaints.xlsx'); // Specify the file name
+                            document.body.appendChild(link);
+                            link.click();
+                            link.parentNode.removeChild(link); // Clean up the DOM
+                        })
+                    }}>Downlaod</button>
 					<table className="w-full">
 						{/* Table content */}
 						<colgroup>

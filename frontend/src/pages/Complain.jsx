@@ -1,38 +1,86 @@
-import React, { useState } from 'react'
-import Plant from '../components/Plant';
-import Colony from '../components/Colony';
-import Sidebar from '../components/Sidebar';
+import React, { useState } from 'react';
+import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+import Space from '../components/Space'
+import Navbar from '../components/Navbar'
+import PhaseButton from '../components/PhaseButton';
+import LocationButton from '../components/LocationButton';
 
-function Complain() {
-    const [selectedOption, setSelectedOption] = useState('');
+const MyForm = () => {
+    const [phase, setPhase] = useState('Select Phase');
+    const [quarter, setQuarter] = useState('');
+    const [location, setLocation] = useState('Select Location');
+    const [showSubmitButton, setShowSubmitButton] = useState(false);
 
-    const handleChange = (event) => {
-        setSelectedOption(event.target.value);
+    const handleQuarterChange = (e) => {
+        const enteredQuarter = e.target.value;
+        setQuarter(enteredQuarter);
+        // Show submit button only if quarter is entered
+        setShowSubmitButton(!!enteredQuarter);
+    };
+
+    const handleLocationChange = (e) => {
+        const enteredLocation = e.target.value;
+        setQuarter(enteredLocation);
+        // Show submit button only if location is entered
+        setShowSubmitButton(!!enteredLocation);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Do something with phase and quarter or location
+        // console.log('Selected Option:', selectedOption);
+        // console.log('Phase:', phase);
+        // console.log('Quarter:', quarter);
+        // console.log('Location:', location);
     };
 
     return (
-        <div className='grid grid-cols-12'>
-            <div className='col-span-2'>
-                <Sidebar />
+        <div className=''>
+            <div className=''>
+                <Navbar/>
             </div>
-            <div className='col-span-5 text-center'>
-                <div >
-                    <h4>SELECT THE PLACE FOR YOUR COMPLAIN</h4>
-
-                    <select class="form-select" aria-label="Disabled select example" value={selectedOption} onChange={handleChange} >
-                        <option selected>Open this select menu</option>
-                        <option value="plant">Plant</option>
-                        <option value="colony">Colony</option>
-                    </select>
-
-
-                    <p>Selected option: {selectedOption}</p>
-                    {selectedOption === 'plant' && <div>ENTER YOUR QUATER NUMBER <Plant/></div>}
-                    {selectedOption === 'colony' && <div>ENTER YOUR QUATER NUMBER  <Colony/></div>}
-                </div>
-            </div>
+            <Container className="grid col-span-8">
+                <Row className="justify-content-center mt-5">
+                    <Col md={6}>
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group controlId="optionSelect">
+                                <Form.Label><b style={{ color: 'maroon' }}>Select Plant or Colony:</b></Form.Label>
+                                <LocationButton type={location} setType={setLocation}/>
+                            </Form.Group>
+                            {location === 'Colony' && (
+                                <React.Fragment>
+                                    <Form.Group controlId="phaseSelect">
+                                        <Form.Label><b style={{ color: 'maroon' }}>Choose Phase:</b></Form.Label>
+                                        <PhaseButton type={phase} setType={setPhase}/>
+                                    </Form.Group>
+                                    {phase!='Select Phase' && (
+                                        <Form.Group controlId="quarterInput" >
+                                            <Form.Label><b style={{ color: 'maroon' }}>Enter Quarter Number:</b></Form.Label>
+                                            <Form.Control type="string" placeholder="Enter Quarter Number" onChange={handleQuarterChange} value={quarter} style={{ backgroundColor: '#edd8d8' }} />
+                                        </Form.Group>
+                                    )}
+                                    {showSubmitButton && (
+                                        <Space quarter={quarter} phase={phase} location={location}/>
+                                    )}
+                                </React.Fragment>
+                            )}
+                            {location === 'Plant' && (
+                                <React.Fragment>
+                                    <Form.Group controlId="locationInput">
+                                        <Form.Label><b style={{ color: 'maroon' }}>Enter Location:</b></Form.Label>
+                                        <Form.Control type="text" placeholder="Enter Location" onChange={handleLocationChange} value={quarter} style={{ backgroundColor: '#edd8d8' }} />
+                                    </Form.Group>
+                                    {showSubmitButton && (
+                                        <Space quarter={quarter} phase={phase} location={location}/>
+                                    )}
+                                </React.Fragment>
+                            )}
+                        </Form>
+                    </Col>
+                </Row>
+            </Container>
         </div>
     );
-}
+};
 
-export default Complain
+export default MyForm;

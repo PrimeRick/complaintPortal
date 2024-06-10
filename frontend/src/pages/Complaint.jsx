@@ -1,5 +1,5 @@
-import React from 'react'
-import Sidebar from '../components/Sidebar'
+import React, { useState } from 'react'
+import Navbar from '../components/Navbar'
 import Card from '../components/Card'
 import civil from '../assets/civil.svg'
 import electricpole from '../assets/electricpole.svg'
@@ -8,20 +8,27 @@ import housekeeperIcon from '../assets/housekeeper-icon.svg'
 
 function Complaint() {
     return (
-        <div className='grid grid-cols-12'>
-            <div className='col-span-2'>
-                <Sidebar/>
+        <div className=''>
+            <div>
+                <Navbar />
             </div>
-            <div className='col-span-9'>
-                <div className='w-full grid grid-cols-2'>
-                    <Card title={"CIVIL"} src={civil}/>
-                    <Card title={"ELECTRICAL"} src={electricpole}/>
-                    <Card title={"CANTEEN"} src={canteen}/>
-                    <Card title={"HOUSEKEEPING"}  src={housekeeperIcon}/>
+            <br />
+            <div className='itmes-center grid grid-cols-2 pl-[10%] pr-[10%]'>
+                <div>
+                    <Card title={"Civil"} src={civil} />
+                </div>
+                <div>
+                    <Card title={"Electrical"} src={electricpole} />
+                </div>
+                <div>
+                    <Card title={"Canteen"} src={canteen} />
+                </div>
+                <div>
+                    <Card title={"Housekeeping"} src={housekeeperIcon} />
                 </div>
             </div>
         </div>
-  )
+    )
 }
 
 export default Complaint
