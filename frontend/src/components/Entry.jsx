@@ -29,13 +29,13 @@ function Entry({ cpf, status, description, createdAt, complaintId, isTableVisibl
 		<>
 			<tr className="text-sm relative" key={complaintId}>
 				<th scope="row">{index}</th>
-				<td className="px-3 py-[10px] whitespace-wrap text-[#4D4D4D" >{cpf}</td>
-				<td className="px-3 py-[10px] whitespace-wrap align-middle gap-[6px] text-[#1A181E] z-10">
+				<td className="px-3 py-[10px] whitespace-wrap" >{cpf}</td>
+				<td className="px-3 py-[10px] whitespace-wrap align-middle gap-[6px] z-10">
 					<StatusButton type={status2} setType={setStatus2} />
 				</td>
-				<td className="px-3 py-[10px] whitespace-wrap text-[#1A181E]">{description}</td>
-				<td className="px-3 py-[10px] whitespace-wrap text-[#4D4D4D]">{createdAt}</td>
-				<td className="px-3 py-[10px] whitespace-wrap text-[#4D4D4D" >{feedback}</td>
+				<td className="px-3 py-[10px] whitespace-wrap">{description}</td>
+				<td className="px-3 py-[10px] whitespace-wrap">{createdAt}</td>
+				<td className="px-3 py-[10px] whitespace-wrap" >{feedback}</td>
 				{isTableVisible && (
 					<span className="absolute bg-[#E6E6E6] w-[calc(100%-20px)] h-[1px] bottom-0 left-[10px]"></span>
 				)}

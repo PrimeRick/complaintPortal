@@ -316,8 +316,32 @@ router.post('/complaint', authSuperAdmin, async(req,res)=>{
     }
 })
 
-router.get('/serial', authSuperAdmin, async(req, res)=>{
-    const response = await Serial.findOne({})
+router.get('/civilSerial', authSuperAdmin, async(req, res)=>{
+    const response = await CivilSerial.findOne({})
+    console.log(`heyyyyyy ${response.serial}`)
+    return res.json({
+        serial: response.serial
+    })
+})
+
+router.get('/electricalSerial', authSuperAdmin, async(req, res)=>{
+    const response = await ElectricalSerial.findOne({})
+    console.log(`heyyyyyy ${response.serial}`)
+    return res.json({
+        serial: response.serial
+    })
+})
+
+router.get('/canteenSerial', authSuperAdmin, async(req, res)=>{
+    const response = await CanteenSerial.findOne({})
+    console.log(`heyyyyyy ${response.serial}`)
+    return res.json({
+        serial: response.serial
+    })
+})
+
+router.get('/housekeepingSerial', authSuperAdmin, async(req, res)=>{
+    const response = await HousekeepingSerial.findOne({})
     console.log(`heyyyyyy ${response.serial}`)
     return res.json({
         serial: response.serial
@@ -325,7 +349,8 @@ router.get('/serial', authSuperAdmin, async(req, res)=>{
 })
 
 const updateSerialBody = zod.object ({
-    serial: zod.number()
+    serial: zod.number(),
+    whichSerial: zod.string()
 })
 
 router.put('/updateSerial', authSuperAdmin, async(req, res)=>{
@@ -338,20 +363,68 @@ router.put('/updateSerial', authSuperAdmin, async(req, res)=>{
     }
     const serial = req.body.serial
     const newSerial = serial+1
+    const whichSerial = req.body.whichSerial
     try{
-        const entry = await Serial.findOneAndUpdate({
-            serial: serial
-        }, {
-            serial: newSerial
-        })
-        if(!entry){
-            return res.status(411).json({
-                msg: 'no such serial found'
+        if(whichSerial=='civilSerial'){
+            const entry = await CivilSerial.findOneAndUpdate({
+                serial: serial
+            }, {
+                serial: newSerial
+            })
+            if(!entry){
+                return res.status(411).json({
+                    msg: 'no such serial found'
+                })
+            }
+            return res.json({
+                msg: 'serial updated'
             })
         }
-        return res.json({
-            msg: 'serial updated'
-        })
+        else if(whichSerial=='canteenSerial'){
+            const entry = await CanteenSerial.findOneAndUpdate({
+                serial: serial
+            }, {
+                serial: newSerial
+            })
+            if(!entry){
+                return res.status(411).json({
+                    msg: 'no such serial found'
+                })
+            }
+            return res.json({
+                msg: 'serial updated'
+            })
+        }
+        else if(whichSerial=='electricalSerial'){
+            const entry = await ElectricalSerial.findOneAndUpdate({
+                serial: serial
+            }, {
+                serial: newSerial
+            })
+            if(!entry){
+                return res.status(411).json({
+                    msg: 'no such serial found'
+                })
+            }
+            return res.json({
+                msg: 'serial updated'
+            })
+        }
+        else{
+            const entry = await HousekeepingSerial.findOneAndUpdate({
+                serial: serial
+            }, {
+                serial: newSerial
+            })
+            if(!entry){
+                return res.status(411).json({
+                    msg: 'no such serial found'
+                })
+            }
+            return res.json({
+                msg: 'serial updated'
+            })
+        }
     }
     catch{
         return res.status(411).json({
@@ -380,7 +453,7 @@ router.delete('/reset', authSuperAdmin, async(req, res)=>{
         await HousekeepingSerial.create({
             serial: 1
         })
-        
+
         console.log('done??')
         return res.json({
             msg: 'New Contract Begins'
