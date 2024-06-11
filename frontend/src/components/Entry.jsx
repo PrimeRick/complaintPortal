@@ -37,7 +37,7 @@ function Entry({ cpf, status, description, createdAt, complaintId, isTableVisibl
 				<td className="px-3 py-[10px] whitespace-wrap">{createdAt}</td>
 				<td className="px-3 py-[10px] whitespace-wrap" >{feedback}</td>
 				{isTableVisible && (
-					<span className="absolute bg-[#E6E6E6] w-[calc(100%-20px)] h-[1px] bottom-0 left-[10px]"></span>
+					<span className="absolute w-[calc(100%-20px)] h-[1px] bottom-0 left-[10px]"></span>
 				)}
 			</tr>
 		</>

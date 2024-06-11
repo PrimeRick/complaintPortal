@@ -2,7 +2,7 @@ const express = require("express");
 const zod = require('zod');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../config');
-const { Admin, Complaint, User, Serial } = require('../db');
+const { Admin, Complaint, User, CivilSerial, ElectricalSerial, CanteenSerial, HousekeepingSerial, } = require('../db');
 const { authAdmin } = require('../middleware/auth')
 const ExcelJs = require('exceljs')
 
@@ -114,7 +114,7 @@ router.put('/Open', authAdmin, async(req, res)=>{
         state: 'Open'
     })
 })
-router.put('/InProgress', authAdmin, async(req, res)=>{
+router.put('/In%20Progress', authAdmin, async(req, res)=>{
     const complaintId = req.body.complaintId
     try{
         const complaint = await Complaint.findOneAndUpdate({

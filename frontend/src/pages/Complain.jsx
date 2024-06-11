@@ -56,7 +56,7 @@ const MyForm = () => {
                                     {phase!='Select Phase' && (
                                         <Form.Group controlId="quarterInput" >
                                             <Form.Label><b style={{ color: 'maroon' }}>Enter Quarter Number:</b></Form.Label>
-                                            <Form.Control type="string" placeholder="Enter Quarter Number" onChange={handleQuarterChange} value={quarter} style={{ backgroundColor: '#edd8d8' }} />
+                                            <Form.Control type="string" placeholder="Enter your quarter number" onChange={handleQuarterChange} value={quarter} style={{ backgroundColor: '#edd8d8' }} />
                                         </Form.Group>
                                     )}
                                     {showSubmitButton && (
@@ -68,7 +68,7 @@ const MyForm = () => {
                                 <React.Fragment>
                                     <Form.Group controlId="locationInput">
                                         <Form.Label><b style={{ color: 'maroon' }}>Enter Location:</b></Form.Label>
-                                        <Form.Control type="text" placeholder="Enter Location" onChange={handleLocationChange} value={quarter} style={{ backgroundColor: '#edd8d8' }} />
+                                        <Form.Control type="text" placeholder="Enter your Location" onChange={handleLocationChange} value={quarter} style={{ backgroundColor: '#edd8d8' }} />
                                     </Form.Group>
                                     {showSubmitButton && (
                                         <Space quarter={quarter} phase={phase} location={location}/>

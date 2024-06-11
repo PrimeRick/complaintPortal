@@ -11,6 +11,7 @@ import { MdElectricalServices } from "react-icons/md";
 import { IoFastFoodOutline } from "react-icons/io5";
 import { MdOutlineDryCleaning } from "react-icons/md";
   import { Dispatch, SetStateAction, useState } from "react";
+//   import { IconType } from "react-icons";
   
   const StaggeredDropDown = ({type, setType}) => {
 	const [open, setOpen] = useState(false);
@@ -20,7 +21,7 @@ import { MdOutlineDryCleaning } from "react-icons/md";
 		<motion.div animate={open ? "open" : "closed"} className="relative">
 		  <button
 			onClick={() => setOpen((pv) => !pv)}
-			className="flex items-center gap-2 w-36 px-3 py-2 rounded-md text-white bg-indigo-500 hover:bg-indigo-500 transition-colors">
+			className="flex items-center gap-2 w-36 px-3 py-2 rounded-md text-white bg-indigo-600 hover:bg-indigo-500 transition-colors">
 			<span className="font-medium text-sm">{type}</span>
 			<motion.span variants={iconVariants}>
 			  <FiChevronDown />
