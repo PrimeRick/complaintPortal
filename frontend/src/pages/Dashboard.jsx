@@ -6,12 +6,13 @@ import StickyNavbar from '../components/Navbar'
 
 export default function Dashboard(){
     const who = localStorage.getItem('who')
+    // console.log(who);
     return (
         // <div className='grid grid-cols-12'>  
         <div className=''>  
             <div className='col-span-2'>
                     {/* <Sidebar/> */}
-                    <StickyNavbar/>
+                    <StickyNavbar who={who}/>
             </div>
             <br />
             <div className='sm: pl-2 col-span-9'>

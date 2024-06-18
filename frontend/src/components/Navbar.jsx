@@ -160,7 +160,9 @@ function NavListMenu() {
   );
 }
  
-function NavList() {
+function NavList(who) {
+	const who2={who}.who
+	console.log(who2)
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
       <Typography
@@ -171,8 +173,22 @@ function NavList() {
         className="font-medium"
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">Lodge a Complaint</ListItem>
+
       </Typography>
+      {who2.who=='user'?
+      <Typography
+        as="a"
+        href="/complaint"
+        variant="small"
+        color="blue-gray"
+        className="font-medium"
+      >
+      <ListItem className="flex items-center gap-2 py-2 pr-4">Dasboard</ListItem>
+
+      </Typography>
+      :
       <NavListMenu />
+      }
       <Typography
         as="a"
         href="#"
@@ -188,7 +204,7 @@ function NavList() {
   );
 }
  
-export default function NavbarWithMegaMenu() {
+export default function NavbarWithMegaMenu(who) {
   const [openNav, setOpenNav] = React.useState(false);
   const navigate = useNavigate();
  
@@ -198,6 +214,8 @@ export default function NavbarWithMegaMenu() {
       () => window.innerWidth >= 960 && setOpenNav(false),
     );
   }, []);
+  const who1={who}.who;
+//   console.log(who1.who)
  
   return (
     <Navbar className="mx-auto max-w-screen-3xl px-4 py-2 fixed top-0 z-50">
@@ -211,7 +229,7 @@ export default function NavbarWithMegaMenu() {
           Complaints Portal
         </Typography>
         <div className="hidden lg:block">
-          <NavList />
+          <NavList who={who1.who}/>
         </div>
         <div className="hidden gap-2 lg:flex">
           <Button variant="gradient" size="sm" onClick={()=>{
