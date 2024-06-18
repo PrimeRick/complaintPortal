@@ -28,9 +28,9 @@ function Entry({ cpf, status, description, createdAt, complaintId, dept, isTable
 	// }, [status2])
 	return (
 		<>
-			<tr className="text-sm relative" key={complaintId}>
+			<tr className="text-sm " key={complaintId}>
 				<th scope="row">{complaintId}</th>
-				<td className="px-3 py-[10px] whitespace-wrap text-[#4D4D4D" >{cpf}</td>
+				<td className="px-3 py-[10px] whitespace-wrap text-[#4D4D4D " >{cpf}</td>
 				<td className="px-3 py-[10px] whitespace-wrap text-[#4D4D4D" >{dept}</td>
 				<td className="px-3 py-[10px] whitespace-wrap align-middle gap-[6px] text-[#1A181E] z-10">
 					{/* <StatusButton type={status2} setType={setStatus2} /> */}

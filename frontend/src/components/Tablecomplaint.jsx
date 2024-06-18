@@ -50,6 +50,8 @@ export default function Tablecomplaint() {
 
 	return (
 		<>
+		<span className="flex text-red-700 text-3xl items-center  " style={{display:'flex',justifyContent:'center'}}><b>Complaints</b></span>
+		<br />
 			{isTableVisible && (
 				<div className={isMediumScreen ? "overflow-visible" : "hidden"}>
 					<table className="w-full">
@@ -66,7 +68,7 @@ export default function Tablecomplaint() {
 						</colgroup>
 						<thead className="text-[#4D4D4D]">
 							<tr className="bg-[#F2F2F2]">
-								<th className="px-3 py-[10px] text-left text-sm font-medium tracking-wider rounded-l">
+								<th className="px-3 py-[10px] text-left text-sm font-medium tracking-wider rounded-l ">
 									Complaint ID
 								</th>
 								<th className="px-3 py-[10px] text-left text-sm font-medium tracking-wider rounded-l">

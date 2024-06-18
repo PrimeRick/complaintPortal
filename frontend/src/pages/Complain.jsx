@@ -39,7 +39,7 @@ const MyForm = () => {
             <div className=''>
                 <Navbar/>
             </div>
-            <Container className="grid col-span-8">
+            <Container className="grid col-span-8 mt-[4%]">
                 <Row className="justify-content-center mt-5">
                     <Col md={6}>
                         <Form onSubmit={handleSubmit}>
@@ -56,7 +56,7 @@ const MyForm = () => {
                                     {phase!='Select Phase' && (
                                         <Form.Group controlId="quarterInput" >
                                             <Form.Label><b style={{ color: 'maroon' }}>Enter Quarter Number:</b></Form.Label>
-                                            <Form.Control type="string" placeholder="Enter your quarter number" onChange={handleQuarterChange} value={quarter} style={{ backgroundColor: '#edd8d8' }} />
+                                            <Form.Control type="string" placeholder="Enter your quarter number" onChange={handleQuarterChange} value={quarter} style={{ borderColor: '#edd8d8' }} />
                                         </Form.Group>
                                     )}
                                     {showSubmitButton && (
@@ -68,7 +68,7 @@ const MyForm = () => {
                                 <React.Fragment>
                                     <Form.Group controlId="locationInput">
                                         <Form.Label><b style={{ color: 'maroon' }}>Enter Location:</b></Form.Label>
-                                        <Form.Control type="text" placeholder="Enter your Location" onChange={handleLocationChange} value={quarter} style={{ backgroundColor: '#edd8d8' }} />
+                                        <Form.Control type="text" placeholder="Enter your Location" onChange={handleLocationChange} value={quarter} style={{ borderColor: '#edd8d8' }} />
                                     </Form.Group>
                                     {showSubmitButton && (
                                         <Space quarter={quarter} phase={phase} location={location}/>

@@ -9,7 +9,7 @@ export default function UserDashboard(){
                 <NavbarWithMegaMenu/>
             </div>
             <br />
-            <div className='sm: pl-2 col-span-9'>
+            <div className='sm: pl-2 col-span-9' style={{marginTop:'5%'}}>
                 <UserTable/>
             </div> 
         </div>

@@ -78,40 +78,40 @@ function UserTable() {
 		<>
 			{isTableVisible && (
 				<div className={isMediumScreen ? "overflow-visible" : "hidden"}>
-					<span className="flex text-red-700 text-3xl items-center pl-60 ">Complaints</span>
+					<span className="flex text-red-700 text-3xl mt-[6%]" style={{display:'flex',justifyContent:'center'}}><b>Complaints</b></span>
 					<br />
-					<table className="w-full">
+					<table className="w-full ">
 						{/* Table content */}
 						<colgroup>
-							<col style={{ width: "5%" }} />
+							<col style={{ width: "10%" }} />
 							{/* <col style={{ width: "15%" }} /> */}
-							<col style={{ width: "9%" }} />
-							<col style={{ width: "12%" }} />
-							<col style={{ width: "36%" }} />
-							<col style={{ width: "17%" }} />
-							<col style={{ width: "21%" }} />
+							<col style={{ width: "14%" }} />
+							<col style={{ width: "11%" }} />
+							<col style={{ width: "30%" }} />
+							<col style={{ width: "16%" }} />
+							<col style={{ width: "19%" }} />
 						</colgroup>
 						<thead className="text-[#4D4D4D]">
 							<tr className="bg-[#F2F2F2]">
 								{/* <th className="px-3 py-[10px] text-left text-sm font-medium tracking-wider rounded-l">
 									#
 								</th> */}
-								<th className="px-3 py-[10px] text-left text-sm font-medium tracking-wider rounded-l">
+								<th className="px-3 py-[10px] text-left text-sm font-medium tracking-wider rounded-l ">
 									Complaint Id
 								</th>
-								<th className="px-3 py-[10px] text-left text-sm font-medium tracking-wider rounded-l">
+								<th className="px-3 py-[10px] text-left text-sm font-medium tracking-wider rounded-l ">
 									Complaint Type
 								</th>
-								<th className="px-3 py-[10px] text-left text-sm font-medium tracking-wider">
+								<th className="px-3 py-[10px] text-left text-sm font-medium tracking-wider ">
 									Status
 								</th>
-								<th className="px-3 py-[10px] text-left text-sm font-medium tracking-wider rounded-r">
+								<th className="px-3 py-[10px] text-left text-sm font-medium tracking-wider rounded-r ">
 									Description
 								</th>
-								<th className="px-3 py-[10px] text-left text-sm font-medium tracking-wider">
+								<th className="px-3 py-[10px] text-left text-sm font-medium tracking-wider ">
 									Created At
 								</th>
-								<th className="px-3 py-[10px] text-left text-sm font-medium tracking-wider rounded-r">
+								<th className="px-3 py-[10px] text-left text-sm font-medium tracking-wider rounded-r ">
 									Feedback
 								</th>
 								{/* <span className="absolute bg-[#E6E6E6] w-[calc(100%-20px)] h-[1px] bottom-0 left-[10px]"></span> */}
@@ -122,13 +122,13 @@ function UserTable() {
 								<tr className="text-sm relative" key={elem._id}>
 									<th scope="row">{elem.serial}</th>
 									{/* <td className="px-3 py-[10px] whitespace-wrap text-[#4D4D4D" >{elem._id}</td> */}
-									<td className="px-3 py-[10px] whitespace-wrap text-[#4D4D4D" >{elem.dept}</td>
-									<td className="px-3 py-[10px] whitespace-wrap align-middle gap-[6px] text-[#1A181E] z-10">
+									<td className="px-3 py-[10px] whitespace-wrap text-[#4D4D4D " >{elem.dept}</td>
+									<td className="px-3 py-[10px] whitespace-wrap align-middle gap-[6px] text-[#1A181E] z-10 ">
 										{elem.state}
 									</td>
-									<td className="px-3 py-[10px] whitespace-wrap text-[#1A181E]">{elem.description}</td>
-									<td className="px-3 py-[10px] whitespace-wrap text-[#4D4D4D]">{elem.createdAt}</td>
-									<td className="px-3 py-[10px] whitespace-wrap text-[#4D4D4D]">
+									<td className="px-3 py-[10px] whitespace-wrap text-[#1A181E] ">{elem.description}</td>
+									<td className="px-3 py-[10px] whitespace-wrap text-[#4D4D4D] ">{elem.createdAt}</td>
+									<td className="px-3 py-[10px] whitespace-wrap text-[#4D4D4D] ">
 										{elem.state == 'Resolved'  && !(elem.feedback) ?
 											<>
 												<InputBox type={"text"} stateVariable={feedback} label={"Feedback"} onChange={(e) => setFeedback(e.target.value)} />

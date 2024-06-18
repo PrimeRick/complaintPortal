@@ -21,7 +21,7 @@ function Space({ phase, quarter, location}) {
 			<div className='text-center'>
 				<label for="exampleFormControlTextarea1" ></label>
 				<textarea value={desc} onChange={(e)=>setDesc(e.target.value)}
-				style={{ backgroundColor: "#edd8d8" }} class="form-control" id="exampleFormControlTextarea1" rows="15" placeholder='ENTER YOUR COMPLAINT '></textarea>
+				style={{ borderColor: "#edd8d8" }} class="form-control" id="exampleFormControlTextarea1" rows="15" placeholder='Enter your complaint '></textarea>
 				<br />
 				<br />
 				<button type="button" class="btn btn-success" onClick={() => {

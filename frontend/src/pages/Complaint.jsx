@@ -13,7 +13,7 @@ function Complaint() {
                 <Navbar />
             </div>
             <br />
-            <div className='itmes-center grid grid-cols-2 pl-[10%] pr-[10%]'>
+            <div className='itmes-center grid grid-cols-2 pl-[10%] pr-[10%] mt-[10%]'>
                 <div>
                     <Card title={"Civil"} src={civil} />
                 </div>

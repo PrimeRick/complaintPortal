@@ -50,10 +50,9 @@ function AdminTable() {
 	return (
 		<>
 			{isTableVisible && (
-				<div className={isMediumScreen ? "overflow-visible" : "hidden"}>
-					<span className="flex text-red-700 text-3xl items-center pl-60 ">Complaints</span>
-					<br />
-					<button type='button' class="btn btn-success" onClick={()=>{
+				<div className={isMediumScreen ? "overflow-visible" : "hidden"} style={{marginTop:"5%"}}>
+					<span className="flex text-red-700 text-3xl items-center  " style={{display:"flex",justifyContent:'center',marginTop:'6%'}}><b>Complaints</b></span>
+					<button type='button' class="btn btn-success " style={{marginLeft:'91%'}} onClick={()=>{
                         const config = {
                             headers: {
                                 Authorization: localStorage.getItem('token'),
@@ -72,21 +71,23 @@ function AdminTable() {
                             link.parentNode.removeChild(link); // Clean up the DOM
                         })
                     }}>Downlaod</button>
-					<table className="w-full">
+					<br/>
+					<br/>
+					<table className="w-full" >
 						{/* Table content */}
 						<colgroup>
-							<col style={{ width: "3%" }} />
+							<col style={{ width: "10%" }} />
 							{/* <col style={{ width: "15%" }} /> */}
 							<col style={{ width: "9%" }} />
 							<col style={{ width: "9%" }} />
-							<col style={{ width: "36%" }} />
+							<col style={{ width: "30%" }} />
 							<col style={{ width: "17%" }} />
-							<col style={{ width: "26%" }} />
+							<col style={{ width: "25%" }} />
 						</colgroup>
 						<thead className="text-[#4D4D4D]">
 							<tr className="bg-[#F2F2F2]">
 								<th className="px-3 py-[10px] text-left text-sm font-medium tracking-wider rounded-l">
-									#
+									Complaint Id
 								</th>
 								{/* <th className="px-3 py-[10px] text-left text-sm font-medium tracking-wider rounded-l">
 									Complaint Id

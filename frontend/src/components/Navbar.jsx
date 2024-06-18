@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import ongc_logo from "../assets/Oil_and_Natural_Gas_Corporation-Logo.wine.svg"
 import {
   Navbar,
   Collapse,
@@ -199,7 +200,7 @@ export default function NavbarWithMegaMenu() {
   }, []);
  
   return (
-    <Navbar className="mx-auto max-w-screen-3xl px-4 py-2">
+    <Navbar className="mx-auto max-w-screen-3xl px-4 py-2 fixed top-0 z-50">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Typography
           as="a"
