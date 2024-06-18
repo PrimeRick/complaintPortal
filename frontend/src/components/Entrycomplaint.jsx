@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import StatusButton from './StatusButton';
 
-function Entry({ cpf, status, description, createdAt, complaintId, dept, isTableVisible, index, location }) {
+function Entry({ cpf, status, description, createdAt, complaintId, dept, isTableVisible, index, feedback, location }) {
 	const phaseExists = location.split(' / ')[0]
 	{phaseExists=='undefined'?
 	location=location.split(' / ')[1]:<></>}
@@ -39,6 +39,7 @@ function Entry({ cpf, status, description, createdAt, complaintId, dept, isTable
 				<td className="px-3 py-[10px] whitespace-wrap text-[#1A181E]">{location}</td>
 				<td className="px-3 py-[10px] whitespace-wrap text-[#1A181E]">{description}</td>
 				<td className="px-3 py-[10px] whitespace-wrap text-[#4D4D4D]">{createdAt}</td>
+				<td className="px-3 py-[10px] whitespace-wrap text-[#4D4D4D]">{feedback}</td>
 				{isTableVisible && (
 					<span className="absolute bg-[#E6E6E6] w-[calc(100%-20px)] h-[1px] bottom-0 left-[10px]"></span>
 				)}

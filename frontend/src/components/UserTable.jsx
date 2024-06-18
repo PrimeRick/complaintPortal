@@ -68,6 +68,63 @@ function UserTable() {
 			window.removeEventListener('resize', handleScreenSizeChange);
 		};
 	}, []);
+	useEffect(() => {
+		// Fetch complaints data
+		{
+			who == 'user' ?
+				axios.get(`http://localhost:3000/v1/user/dashboard`, {
+					headers: {
+						Authorization: token
+					}
+				})
+					.then((response) => {
+						if (response.data.msg == 'token expired') {
+							localStorage.removeItem('token')
+							localStorage.removeItem('who')
+							localStorage.removeItem('complaintType')
+							alert('Session Expired !! \nPlease Sign In Again')
+							navigate('/signin')
+						}
+						setComplaints(response.data.complaints);
+						setIsTableVisible(true); // Show the table after fetching data
+					})
+					.catch((error) => {
+						console.error('Error fetching complaints:', error);
+					})
+				:
+				axios.get(`http://localhost:3000/v1/${who}/userDashboard`, {
+					headers: {
+						Authorization: token
+					}
+				})
+					.then((response) => {
+						if (response.data.msg == 'token expired') {
+							localStorage.removeItem('token')
+							localStorage.removeItem('who')
+							localStorage.removeItem('complaintType')
+							alert('Session Expired !! \nPlease Sign In Again')
+							navigate('/signin')
+						}
+						setComplaints(response.data.complaints);
+						setIsTableVisible(true); // Show the table after fetching data
+					})
+					.catch((error) => {
+						console.error('Error fetching complaints:', error);
+					})
+
+		}
+
+		// Check initial screen size
+		handleScreenSizeChange();
+
+		// Add event listener for screen size changes
+		window.addEventListener('resize', handleScreenSizeChange);
+
+		// Cleanup function
+		return () => {
+			window.removeEventListener('resize', handleScreenSizeChange);
+		};
+	}, [complaints]);
 
 	// Function to handle screen size changes
 	const handleScreenSizeChange = () => {
@@ -129,7 +186,7 @@ function UserTable() {
 									<td className="px-3 py-[10px] whitespace-wrap text-[#1A181E] ">{elem.description}</td>
 									<td className="px-3 py-[10px] whitespace-wrap text-[#4D4D4D] ">{elem.createdAt}</td>
 									<td className="px-3 py-[10px] whitespace-wrap text-[#4D4D4D] ">
-										{elem.state == 'Resolved'  && !(elem.feedback) ?
+										{elem.state == 'Closed'  && !(elem.feedback) ?
 											<>
 												<InputBox type={"text"} stateVariable={feedback} label={"Feedback"} onChange={(e) => setFeedback(e.target.value)} />
 												<Button label={"✔︎"} onClick={()=>{
