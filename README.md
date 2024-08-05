@@ -6,7 +6,7 @@ Implementing a complaints management system not only helps in resolving employee
 
 ## Key Features
 
- - **Transparent Complaint Handling:** Ensuring transparency, fairness, and accountability in addressing employee's complaints is fundamental. The system provides clear visibility into the grievance resolution process, fostering trust and confidence among students.
+ - **Transparent Complaint Handling:** Ensuring transparency, fairness, and accountability in addressing employee's complaints is fundamental. The system provides clear visibility into the complaint resolution process, fostering trust and confidence among students.
  - **Access-based controls:** The system includes a super-admin dashboard for overseeing all complaints and managing departmental admins. Departmental admins handle complaints within their departments, while users can submit complaints categorised by department and location.
  - **Web Application Interface:** Employees and administrators benefit from a user-friendly web application interface. This intuitive platform facilitates seamless interaction with the complaint management system, enhancing accessibility and usability.
  - **Continuous Improvement:** Emphasising ongoing enhancement, the system integrates feedback mechanisms and regular data collection. This commitment to continuous improvement ensures that the system evolves to meet the changing needs of employees and administrators alike.
