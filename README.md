@@ -13,4 +13,19 @@ Implementing a complaints management system not only helps in resolving employee
 ## System Framework
 ![Framework of Online Complaints Management System](https://github.com/user-attachments/assets/75d03f29-fcfa-4ef8-be18-3bebffcff251)
 *Framework illustration depicting the structure of the Complaints Management System.*
+## Interface
+![Login Page](https://github.com/user-attachments/assets/39b8b86c-5d4e-436f-a5fb-f3fd10859520)
+*Login Page*
+![super-admin dashboard](https://github.com/user-attachments/assets/dd09c26c-6a0e-47d0-8bf6-22a6ee575206)
+*super-admin dashboard*
+![admin dashboard](https://github.com/user-attachments/assets/568dac6a-4624-4efb-8e54-08363e8cc1ac)
+*admin dashboard*
+![lodging a complaint](https://github.com/user-attachments/assets/287e4272-5716-4574-a24b-afce453e2e59)
+*lodging a complaint* 
+![user dashboard](https://github.com/user-attachments/assets/5e1c975c-95b5-4005-b6c3-1397c78f701d)
+*user dashboard* 
 
+## Contributors
+### [Kshitij Gupta](https://github.com/PrimeRick)
+
+ - Role: Full Stack Developer
