@@ -11,6 +11,6 @@ Implementing a complaints management system not only helps in resolving employee
  - **Web Application Interface:** Employees and administrators benefit from a user-friendly web application interface. This intuitive platform facilitates seamless interaction with the complaint management system, enhancing accessibility and usability.
  - **Continuous Improvement:** Emphasising ongoing enhancement, the system integrates feedback mechanisms and regular data collection. This commitment to continuous improvement ensures that the system evolves to meet the changing needs of employees and administrators alike.
 ## System Framework
-![Framework of Online Complaints Management System](https://github.com/user-attachments/assets/e8ba9b10-f2dc-46da-b139-6063772f4aef)
+![Framework of Online Complaints Management System](https://github.com/user-attachments/assets/75d03f29-fcfa-4ef8-be18-3bebffcff251)
 *Framework illustration depicting the structure of the Complaints Management System.*
 
