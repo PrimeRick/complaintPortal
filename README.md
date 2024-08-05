@@ -10,25 +10,22 @@ Implementing a complaints management system not only helps in resolving employee
  - **Access-based controls:** The system includes a super-admin dashboard for overseeing all complaints and managing departmental admins. Departmental admins handle complaints within their departments, while users can submit complaints categorised by department and location.
  - **Web Application Interface:** Employees and administrators benefit from a user-friendly web application interface. This intuitive platform facilitates seamless interaction with the complaint management system, enhancing accessibility and usability.
  - **Continuous Improvement:** Emphasising ongoing enhancement, the system integrates feedback mechanisms and regular data collection. This commitment to continuous improvement ensures that the system evolves to meet the changing needs of employees and administrators alike.
+   
 ## System Framework
 ![Framework of Online Complaints Management System](https://github.com/user-attachments/assets/11a1be8e-9da9-41fe-bd62-c00972dcf2f1)
 *Framework illustration depicting the structure of the Complaints Management System.*
+
 ## Interface
 *Login Page*
 ![Login Page](https://github.com/user-attachments/assets/39b8b86c-5d4e-436f-a5fb-f3fd10859520)
-
 *super-admin dashboard*
 ![super-admin dashboard](https://github.com/user-attachments/assets/dd09c26c-6a0e-47d0-8bf6-22a6ee575206)
-
 *admin dashboard*
 ![admin dashboard](https://github.com/user-attachments/assets/568dac6a-4624-4efb-8e54-08363e8cc1ac)
-
 *lodging a complaint* 
 ![lodging a complaint](https://github.com/user-attachments/assets/287e4272-5716-4574-a24b-afce453e2e59)
-
 *user dashboard* 
 ![user dashboard](https://github.com/user-attachments/assets/5e1c975c-95b5-4005-b6c3-1397c78f701d)
-
 
 ## Contributors
 ### [Kshitij Gupta](https://github.com/PrimeRick)
