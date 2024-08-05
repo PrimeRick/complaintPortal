@@ -34,3 +34,4 @@ Implementing a complaints management system not only helps in resolving employee
 ### [Kshitij Gupta](https://github.com/PrimeRick)
 
  - Role: Full Stack Developer
+ - Responsibilities: Development of backend functionalities, refining frontend components, optimizing performance, ensuring responsive design, maintaining code consistency across the application, and ensuring smooth integration with the backend.
