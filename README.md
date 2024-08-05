@@ -19,13 +19,13 @@ Implementing a complaints management system not only helps in resolving employee
 *Login Page*
 ![Login Page](https://github.com/user-attachments/assets/39b8b86c-5d4e-436f-a5fb-f3fd10859520)
 *super-admin dashboard*
-![super-admin dashboard](https://github.com/user-attachments/assets/dd09c26c-6a0e-47d0-8bf6-22a6ee575206)
+![super-admin dashboard](https://github.com/user-attachments/assets/fa420d06-1694-4a5b-a75a-cd62dde60b31)
 *admin dashboard*
-![admin dashboard](https://github.com/user-attachments/assets/568dac6a-4624-4efb-8e54-08363e8cc1ac)
+![admin dashboard](https://github.com/user-attachments/assets/38201ac3-8ecc-4954-9e7f-a9443a2dd6b5)
 *lodging a complaint* 
-![lodging a complaint](https://github.com/user-attachments/assets/287e4272-5716-4574-a24b-afce453e2e59)
+![lodging a complaint](https://github.com/user-attachments/assets/8cb88e80-69d1-4c0c-a146-7a88599db923)
 *user dashboard* 
-![user dashboard](https://github.com/user-attachments/assets/5e1c975c-95b5-4005-b6c3-1397c78f701d)
+![user dashboard](https://github.com/user-attachments/assets/6c966ba8-172e-4c47-892c-47b9f47077cb)
 
 ## Contributors
 ### [Kshitij Gupta](https://github.com/PrimeRick)
