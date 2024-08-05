@@ -27,7 +27,7 @@ Implementing a complaints management system not only helps in resolving employee
 *user dashboard* 
 ![user dashboard](https://github.com/user-attachments/assets/6c966ba8-172e-4c47-892c-47b9f47077cb)
 
-## Contributors
+## Contributor
 ### [Kshitij Gupta](https://github.com/PrimeRick)
 
  - Role: Full Stack Developer
