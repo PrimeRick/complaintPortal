@@ -8,7 +8,7 @@ export default function Dashboard(){
     const who = localStorage.getItem('who')
     // console.log(who);
     return (
-        // <div className='grid grid-cols-12'>  
+        // <div className='grid grid-cols-12'>
         <div className=''>  
             <div className='col-span-2'>
                     {/* <Sidebar/> */}

@@ -56,12 +56,56 @@ router.post('/signin', async(req,res)=>{
 })
 
 
-const adminSchema = zod.object({
-    cpf: zod.number(),
-    dept: zod.string()
-})
+// const superAdminSchema = zod.object({
+//     cpf: zod.number()
+// })
 
+// router.post('/createSuperAdmin', async(req,res)=>{
+// // router.post('/createAdmin', async(req,res)=>{
+//     const { success } = superAdminSchema.safeParse(req.body);
+
+//     if(!success){
+//         console.log(req.body);
+//         return res.status(411).json({
+//             msg: 'invalid inputs',
+//             cpf: typeof(req.body.cpf),
+//         })
+//     }
+//     const existingAdmin = await SuperAdmin.findOne({
+//         cpf: req.body.cpf
+//     })
+
+//     if(existingAdmin || req.body.dept=='Dept'){
+//         return res.status(411).json({
+//             msg: 'cpf already exists as admin'
+//         })
+//     }
+//     try{
+//         await SuperAdmin.create({
+//             cpf: req.body.cpf,
+//             dept: req.body.dept
+//         })
+//         // const cpf = req.body.cpf
+//         // const token = jwt.sign({
+//         //     cpf: cpf
+//         // }, JWT_SECRET);
+
+//         const admins = await SuperAdmin.find({})
+        
+//         res.json({
+//             msg: 'admin created successfully',
+//             // token: `Bearer ${token}`,
+//             admins: admins
+//         })
+//     }
+//     catch(error){
+//         res.status(500).json({
+//             msg: `${error}`
+//         })
+//     }
+// })
 router.post('/createAdmin', authSuperAdmin, async(req,res)=>{
+// router.post('/createAdmin', async(req,res)=>{
     const { success } = adminSchema.safeParse(req.body);
 
     if(!success){
@@ -75,7 +119,7 @@ router.post('/createAdmin', authSuperAdmin, async(req,res)=>{
     const existingAdmin = await Admin.findOne({
         cpf: req.body.cpf
     })
-    
+
     if(existingAdmin || req.body.dept=='Dept'){
         return res.status(411).json({
             msg: 'cpf already exists as admin'
@@ -87,7 +131,6 @@ router.post('/createAdmin', authSuperAdmin, async(req,res)=>{
             dept: req.body.dept
         })
         // const cpf = req.body.cpf
-        
         // const token = jwt.sign({
         //     cpf: cpf
         // }, JWT_SECRET);
